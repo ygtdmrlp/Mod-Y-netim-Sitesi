@@ -1,0 +1,68 @@
+<%- include('../partials/header') %>
+
+<div class="row g-4 mb-5">
+    <div class="col-lg-3 col-md-6">
+        <div class="stat-box animate-up">
+            <div class="display-5 text-primary mb-3"><i class="bi bi-files"></i></div>
+            <h3 class="fw-bold text-white mb-1"><%= modStats.total %></h3>
+            <p class="text-gray-text small mb-0">Toplam Mod</p>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="stat-box animate-up" style="animation-delay: 0.1s">
+            <div class="display-5 text-success mb-3"><i class="bi bi-people"></i></div>
+            <h3 class="fw-bold text-white mb-1"><%= userCount %></h3>
+            <p class="text-gray-text small mb-0">Toplam Kullanıcı</p>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="stat-box animate-up" style="animation-delay: 0.2s">
+            <div class="display-5 text-warning mb-3"><i class="bi bi-download"></i></div>
+            <h3 class="fw-bold text-white mb-1"><%= modStats.downloads %></h3>
+            <p class="text-gray-text small mb-0">Toplam İndirme</p>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="stat-box animate-up" style="animation-delay: 0.3s">
+            <div class="display-5 text-info mb-3"><i class="bi bi-chat-dots"></i></div>
+            <h3 class="fw-bold text-white mb-1"><%= commentCount %></h3>
+            <p class="text-gray-text small mb-0">Toplam Yorum</p>
+        </div>
+    </div>
+</div>
+
+<div class="detail-header animate-up" style="animation-delay: 0.4s">
+    <h3 class="fw-bold text-white mb-5">Yönetim Paneli</h3>
+    <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+            <a href="/admin/mods" class="card text-decoration-none border-secondary hover-shadow p-4 text-center h-100">
+                <div class="fs-1 text-primary mb-3"><i class="bi bi-files-alt"></i></div>
+                <h5 class="fw-bold text-white mb-2">Modlar</h5>
+                <p class="text-gray-text small mb-0">Onay ve Düzenleme</p>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <a href="/admin/categories" class="card text-decoration-none border-secondary hover-shadow p-4 text-center h-100">
+                <div class="fs-1 text-success mb-3"><i class="bi bi-tags"></i></div>
+                <h5 class="fw-bold text-white mb-2">Kategoriler</h5>
+                <p class="text-gray-text small mb-0">Ekleme ve Silme</p>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <a href="/admin/users" class="card text-decoration-none border-secondary hover-shadow p-4 text-center h-100">
+                <div class="fs-1 text-warning mb-3"><i class="bi bi-people-fill"></i></div>
+                <h5 class="fw-bold text-white mb-2">Kullanıcılar</h5>
+                <p class="text-gray-text small mb-0">Üye Yönetimi</p>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <a href="/admin/comments" class="card text-decoration-none border-secondary hover-shadow p-4 text-center h-100">
+                <div class="fs-1 text-info mb-3"><i class="bi bi-chat-quote"></i></div>
+                <h5 class="fw-bold text-white mb-2">Yorumlar</h5>
+                <p class="text-gray-text small mb-0">Denetleme</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

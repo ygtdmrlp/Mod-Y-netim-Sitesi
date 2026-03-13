@@ -1,0 +1,146 @@
+<%- include('partials/header') %>
+
+<div class="row g-4 mb-5">
+    <div class="col-lg-4">
+        <div class="detail-header text-center animate-up">
+            <div class="profile-img-container mb-4">
+                <img src="/uploads/images/<%= user.profile_image %>" id="profileImagePreview" class="border border-3 border-primary">
+                <form action="/profil/upload-image" method="POST" enctype="multipart/form-data" id="profileImageForm">
+                    <label for="profile_image" class="upload-overlay">
+                        <i class="bi bi-camera-fill me-1"></i> Değiştir
+                        <input type="file" name="profile_image" id="profile_image" hidden onchange="document.getElementById('profileImageForm').submit()">
+                    </label>
+                </form>
+            </div>
+            <h3 class="fw-bold text-white mb-1"><%= user.username %></h3>
+            <p class="text-gray-text small mb-4"><%= user.email %></p>
+            <div class="badge-premium bg-primary bg-opacity-10 text-primary border-primary border-opacity-20 mb-4 d-inline-block">
+                <%= user.role.toUpperCase() %>
+            </div>
+            
+            <div class="row g-3 text-center mb-4">
+                <div class="col-6">
+                    <div class="stat-box p-3">
+                        <div class="fw-bold h4 text-white mb-0"><%= userMods.length %></div>
+                        <small class="text-gray-text">Mod</small>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="stat-box p-3">
+                        <div class="fw-bold h4 text-white mb-0"><%= userMods.reduce((acc, mod) => acc + mod.download_count, 0) %></div>
+                        <small class="text-gray-text">İndirme</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-grid gap-2">
+                <a href="/mods/yukle" class="btn btn-primary rounded-pill py-3 fw-bold">
+                    <i class="bi bi-plus-lg me-2"></i> Yeni Mod Yükle
+                </a>
+                <button class="btn btn-outline-light rounded-pill py-3 fw-bold" data-bs-toggle="collapse" data-bs-target="#editProfileForm">
+                    <i class="bi bi-pencil-square me-2"></i> Profili Düzenle
+                </button>
+            </div>
+
+            <!-- Edit Profile Form (Collapsed) -->
+            <div class="collapse mt-4" id="editProfileForm">
+                <div class="bg-dark p-4 rounded-4 border border-secondary text-start animate-up">
+                    <h5 class="fw-bold text-white mb-4">Profil Bilgileri</h5>
+                    <form action="/profil/update" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-gray-text text-uppercase">Kullanıcı Adı</label>
+                            <input type="text" name="username" class="form-control" value="<%= user.username %>" required>
+                        </div>
+                        <hr class="my-4 border-secondary">
+                        <h6 class="fw-bold text-white mb-3">Şifre Değiştir</h6>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-gray-text text-uppercase">Yeni Şifre</label>
+                            <input type="password" name="password" class="form-control" placeholder="Boş bırakırsanız değişmez">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-gray-text text-uppercase">Şifre Tekrar</label>
+                            <input type="password" name="confirm_password" class="form-control" placeholder="Yeni şifreyi onaylayın">
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary rounded-pill fw-bold">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-8">
+        <% if (typeof error !== 'undefined' && error) { %>
+            <div class="alert bg-danger bg-opacity-10 text-danger border-danger border-opacity-20 rounded-4 p-3 mb-4 animate-up">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> <%= error %>
+            </div>
+        <% } %>
+        
+        <% if (typeof success !== 'undefined' || (typeof req !== 'undefined' && req.query.success)) { %>
+            <div class="alert bg-success bg-opacity-10 text-success border-success border-opacity-20 rounded-4 p-3 mb-4 animate-up">
+                <i class="bi bi-check-circle-fill me-2"></i> Profil başarıyla güncellendi!
+            </div>
+        <% } %>
+
+        <div class="detail-header animate-up" style="animation-delay: 0.2s">
+            <h4 class="fw-bold text-white mb-4">Yüklediğim Modlar</h4>
+            
+            <% if (userMods.length === 0) { %>
+                <div class="text-center py-5">
+                    <div class="display-1 text-white opacity-10 mb-4"><i class="bi bi-folder2-open"></i></div>
+                    <h5 class="text-white">Henüz hiç mod yüklemedin.</h5>
+                    <p class="text-white mb-4">İlk modunu paylaşarak topluluğa katıl!</p>
+                    <a href="/mods/yukle" class="btn btn-outline-light rounded-pill px-5">Mod Yükle</a>
+                </div>
+            <% } else { %>
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover align-middle border-0">
+                        <thead>
+                            <tr>
+                                <th class="border-secondary text-gray-text small text-uppercase py-3">Mod</th>
+                                <th class="border-secondary text-gray-text small text-uppercase py-3 text-center">Durum</th>
+                                <th class="border-secondary text-gray-text small text-uppercase py-3 text-center">İstatistik</th>
+                                <th class="border-secondary text-gray-text small text-uppercase py-3 text-end">İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% userMods.forEach(mod => { %>
+                                <tr>
+                                    <td class="py-4 border-secondary">
+                                        <div class="d-flex align-items-center">
+                                            <img src="/uploads/images/<%= mod.image_path %>" class="rounded-3 me-3" width="64" height="64" style="object-fit: cover;">
+                                            <div>
+                                                <h6 class="fw-bold text-white mb-0"><%= mod.title %></h6>
+                                                <small class="text-gray-text"><%= mod.game_name %></small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center py-4 border-secondary">
+                                        <% if (mod.status === 'approved') { %>
+                                            <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-20 rounded-pill px-3 py-1">Yayında</span>
+                                        <% } else { %>
+                                            <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-20 rounded-pill px-3 py-1">Onay Bekliyor</span>
+                                        <% } %>
+                                    </td>
+                                    <td class="text-center py-4 border-secondary">
+                                        <div class="text-white fw-bold"><%= mod.download_count %> <i class="bi bi-download text-gray-text small ms-1"></i></div>
+                                        <small class="text-gray-text"><%= mod.view_count %> <i class="bi bi-eye ms-1"></i></small>
+                                    </td>
+                                    <td class="text-end py-4 border-secondary">
+                                        <div class="d-flex justify-content-end gap-2">
+                                            <a href="/mods/<%= mod.id %>" class="social-btn" title="Görüntüle"><i class="bi bi-eye"></i></a>
+                                            <button class="social-btn text-danger" title="Sil"><i class="bi bi-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

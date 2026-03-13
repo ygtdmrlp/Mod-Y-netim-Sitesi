@@ -1,0 +1,115 @@
+<%- include('partials/header') %>
+
+<!-- Hero Section -->
+<div class="hero-gradient p-5 mb-5 animate-up">
+    <div class="row align-items-center py-5">
+        <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-3 fw-bold mb-4" style="letter-spacing: -2px;">Oyun Deneyimini <span class="text-primary">Zirveye</span> Taşı</h1>
+            <p class="lead text-gray-text mb-5 fs-5">Favori oyunların için topluluk tarafından geliştirilen en iyi modları keşfet. Hızlı, güvenli ve tamamen ücretsiz.</p>
+            <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
+                <a href="/mods" class="btn btn-primary btn-lg px-5 shadow-lg">Modları Keşfet</a>
+                <a href="/mods/yukle" class="btn btn-outline-light btn-lg px-5">Kendi Modunu Paylaş</a>
+            </div>
+            <div class="mt-5 d-flex align-items-center justify-content-center justify-content-lg-start gap-4 text-gray-text small">
+                <span><i class="bi bi-check-circle-fill text-primary me-2"></i> %100 Güvenli</span>
+                <span><i class="bi bi-check-circle-fill text-primary me-2"></i> Hızlı İndirme</span>
+                <span><i class="bi bi-check-circle-fill text-primary me-2"></i> Aktif Topluluk</span>
+            </div>
+        </div>
+        <div class="col-lg-5 d-none d-lg-block">
+            <div class="position-relative">
+                <div class="bg-primary opacity-25 rounded-circle position-absolute blur-3xl" style="width: 300px; height: 300px; top: -50px; right: -50px;"></div>
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop" class="img-fluid rounded-4 shadow-2xl border border-secondary" style="transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- En Çok İndirilenler -->
+<section class="mb-5 pb-5">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+            <h2 class="fw-bold h1 mb-1">En Çok İndirilenler</h2>
+            <p class="text-gray-text mb-0">Haftanın en popüler modları burada.</p>
+        </div>
+        <a href="/mods?sort=download_count" class="btn btn-link text-primary text-decoration-none fw-bold">Tümünü Gör <i class="bi bi-arrow-right"></i></a>
+    </div>
+    
+    <div class="row g-4">
+        <% mostDownloaded.forEach((mod, index) => { %>
+            <div class="col-lg-3 col-md-6 animate-up" style="animation-delay: <%= index * 0.1 %>s">
+                <div class="card">
+                    <div class="position-relative">
+                        <img src="/uploads/images/<%= mod.image_path %>" class="mod-card-img w-100" alt="<%= mod.title %>">
+                        <div class="position-absolute top-0 end-0 m-3">
+                            <span class="badge-premium"><i class="bi bi-download me-1"></i> <%= mod.download_count %></span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-20 rounded-pill px-3 py-1 small fw-bold text-uppercase"><%= mod.game_name %></span>
+                        </div>
+                        <h5 class="card-title fw-bold mb-3"><a href="/mods/<%= mod.id %>" class="text-white text-decoration-none"><%= mod.title %></a></h5>
+                        <div class="d-flex align-items-center justify-content-between mt-4">
+                            <div class="d-flex align-items-center gap-2">
+                                <img src="/uploads/images/default_profile.png" class="rounded-circle" width="24" height="24">
+                                <small class="text-gray-text"><%= mod.uploader_name %></small>
+                            </div>
+                            <small class="text-gray-text"><i class="bi bi-eye me-1"></i> <%= mod.view_count %></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</section>
+
+<!-- Popüler Kategoriler -->
+<section class="mb-5 pb-5 py-5 bg-dark-lighter rounded-4 border border-secondary">
+    <div class="container">
+        <h3 class="fw-bold text-center mb-5 h2">Popüler Kategoriler</h3>
+        <div class="row g-3 justify-content-center">
+            <% categories.forEach(category => { %>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <a href="/kategori/<%= category.id %>" class="card text-center p-4 hover-shadow text-decoration-none border-secondary bg-dark">
+                        <div class="fs-2 mb-3 text-primary"><i class="bi bi-controller"></i></div>
+                        <h6 class="fw-bold text-white mb-0"><%= category.name %></h6>
+                    </a>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</section>
+
+<!-- Yeni Eklenenler -->
+<section class="mb-5">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+            <h2 class="fw-bold h1 mb-1">Yeni Eklenenler</h2>
+            <p class="text-gray-text mb-0">Taze taze mod dünyasından haberler.</p>
+        </div>
+        <a href="/mods" class="btn btn-link text-primary text-decoration-none fw-bold">Tümünü Gör <i class="bi bi-arrow-right"></i></a>
+    </div>
+    
+    <div class="row g-4">
+        <% recentMods.forEach((mod, index) => { %>
+            <div class="col-lg-3 col-md-6 animate-up" style="animation-delay: <%= index * 0.1 %>s">
+                <div class="card">
+                    <div class="position-relative">
+                        <img src="/uploads/images/<%= mod.image_path %>" class="mod-card-img w-100" alt="<%= mod.title %>">
+                    </div>
+                    <div class="card-body p-4">
+                        <span class="text-gray-text small d-block mb-2 text-uppercase fw-bold"><%= mod.game_name %></span>
+                        <h6 class="card-title fw-bold mb-3"><a href="/mods/<%= mod.id %>" class="text-white text-decoration-none"><%= mod.title %></a></h6>
+                        <div class="d-flex align-items-center justify-content-between pt-3 border-top border-secondary">
+                            <span class="text-gray-text small"><i class="bi bi-calendar3 me-1"></i> <%= new Date(mod.created_at).toLocaleDateString('tr-TR') %></span>
+                            <span class="text-primary small fw-bold">İncele <i class="bi bi-chevron-right ms-1"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</section>
+
+<%- include('partials/footer') %>

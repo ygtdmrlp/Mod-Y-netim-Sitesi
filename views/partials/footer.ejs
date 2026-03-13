@@ -1,0 +1,49 @@
+    </div>
+    <footer class="py-5 mt-auto">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <h5 class="navbar-brand mb-4 d-block">MOD MERKEZİ</h5>
+                    <p class="text-gray-text mb-4">En sevdiğiniz oyunlar için en yeni ve en popüler modları keşfedin ve paylaşın. Topluluğumuz her geçen gün büyüyor!</p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="social-btn"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-btn"><i class="bi bi-discord"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold text-white mb-4">Hızlı Linkler</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-2">
+                        <li><a href="/" class="text-gray-text text-decoration-none">Keşfet</a></li>
+                        <li><a href="/mods" class="text-gray-text text-decoration-none">Tüm Modlar</a></li>
+                        <li><a href="/login" class="text-gray-text text-decoration-none">Giriş Yap</a></li>
+                        <li><a href="/register" class="text-gray-text text-decoration-none">Kayıt Ol</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h6 class="fw-bold text-white mb-4">Kategoriler</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-2">
+                        <% categories.slice(0, 4).forEach(category => { %>
+                            <li><a href="/kategori/<%= category.id %>" class="text-gray-text text-decoration-none"><%= category.name %></a></li>
+                        <% }) %>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h6 class="fw-bold text-white mb-4">Bülten</h6>
+                    <p class="text-gray-text small">Yeni modlardan haberdar olmak için abone olun.</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="E-posta adresi">
+                        <button class="btn btn-primary" type="button">Abone Ol</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 pt-4 border-top border-secondary text-center text-gray-text small">
+                &copy; 2026 Mod Merkezi. Tasarım ve Geliştirme ile topluluk için.
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

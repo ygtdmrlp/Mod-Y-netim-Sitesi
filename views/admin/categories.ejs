@@ -1,0 +1,54 @@
+<%- include('../partials/header') %>
+
+<div class="row mb-5 animate-fade-in">
+    <div class="col-lg-4 mb-4">
+        <div class="bg-white rounded-5 shadow-lg p-5">
+            <h4 class="fw-bold mb-4">Yeni Kategori Ekle</h4>
+            <form action="/admin/categories/add" method="POST">
+                <div class="mb-4">
+                    <label class="form-label fw-bold text-muted small ms-2">KATEGORİ ADI</label>
+                    <input type="text" name="name" class="form-control border-0 bg-light rounded-4 p-3" placeholder="Örn: Minecraft" required>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary rounded-pill py-3 fw-bold shadow-sm">Kategori Ekle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="col-lg-8">
+        <div class="bg-white rounded-5 shadow-lg p-5">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <h2 class="fw-bold mb-0">Kategoriler</h2>
+                <a href="/admin" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-bold">Geri</a>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-hover align-middle border-0">
+                    <thead class="bg-light rounded-4">
+                        <tr>
+                            <th class="border-0 px-3 py-3 rounded-start">Kategori Adı</th>
+                            <th class="border-0 px-3 py-3 text-center">Slug</th>
+                            <th class="border-0 px-3 py-3 rounded-end">İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% categories.forEach(category => { %>
+                            <tr class="animate-fade-in">
+                                <td class="px-3 py-4 fw-bold"><%= category.name %></td>
+                                <td class="px-3 py-4 text-center text-muted"><%= category.slug %></td>
+                                <td class="px-3 py-4">
+                                    <form action="/admin/categories/delete/<%= category.id %>" method="POST" class="d-inline" onsubmit="return confirm('Bu kategoriyi silmek istediğinize emin misiniz?')">
+                                        <button type="submit" class="btn btn-sm btn-danger rounded-circle p-2" title="Sil"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>
